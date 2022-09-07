@@ -1,5 +1,9 @@
 
-docker run -it --net=host --device /dev/dri/ -e DISPLAY=$DISPLAY -v $HOME/.Xauthority:/root/.Xauthority:ro osrf/ros:humble-desktop-nav2
+docker run -it --net=host --device /dev/dri/ -e DISPLAY=$DISPLAY -v $HOME/.Xauthority:/root/.Xauthority:ro osrf/ros:humble-desktop
+
+# install nav2
+sudo apt install ros-<ros2-distro>-navigation2
+sudo apt install ros-<ros2-distro>-nav2-bringup
 
 cd ~
 mkdir -p ros2_ws/src
@@ -20,6 +24,11 @@ sudo apt install vim
 
 vim ~/ros2_ws/src/two_wheeled_robot/CMakeLists.txt
 # remove include/ and src/
+
+# switch to cyclone dds
+sudo apt install ros-humble-rmw-cyclonedds-cpp
+echo "export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp" >> ~/.bashrc
+
 
 # build package
 colcon build --symlink-install
